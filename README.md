@@ -7,7 +7,7 @@ A Docker-based tool to scrape metadata from Google Play Store URLs using the goo
 ### Using the published Docker image
 
 ```bash
-docker run --rm forkbombeu/appraccoon:latest "https://play.google.com/store/apps/details?id=com.whatsapp"
+docker run --rm ghcr.io/forkbombeu/appraccoon:latest "https://play.google.com/store/apps/details?id=com.whatsapp"
 ```
 
 ## Usage
@@ -63,44 +63,42 @@ Use the provided script:
 
 Or manually:
 
-1. **Login to Docker Hub:**
+1. **Login to GitHub Container Registry:**
    ```bash
-   docker login
+   echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
+   # or interactively:
+   docker login ghcr.io
    ```
 
 2. **Tag and push the image:**
    ```bash
-   docker tag appraccoon forkbombeu/appraccoon:latest
-   docker tag appraccoon forkbombeu/appraccoon:v1.0.0
-   docker push forkbombeu/appraccoon:latest
-   docker push forkbombeu/appraccoon:v1.0.0
+   docker tag appraccoon ghcr.io/forkbombeu/appraccoon:latest
+   docker tag appraccoon ghcr.io/forkbombeu/appraccoon:v1.0.0
+   docker push ghcr.io/forkbombeu/appraccoon:latest
+   docker push ghcr.io/forkbombeu/appraccoon:v1.0.0
    ```
 
 ### Automated Publishing (GitHub Actions)
 
-The repository includes a GitHub Actions workflow that automatically builds and publishes the Docker image to Docker Hub when:
+The repository includes a GitHub Actions workflow that automatically builds and publishes the Docker image to GitHub Container Registry (ghcr.io) when:
 - Code is pushed to the `main` branch
 - A new version tag is created (e.g., `v1.0.0`)
 
-To set up automated publishing:
+**No additional setup required!** The workflow uses the built-in `GITHUB_TOKEN` which automatically has the necessary permissions.
 
-1. **Add Docker Hub credentials to GitHub Secrets:**
-   - Go to your repository settings
-   - Add `DOCKER_USERNAME` (your Docker Hub username)
-   - Add `DOCKER_PASSWORD` (your Docker Hub password or access token)
+To trigger a new release:
 
-2. **Create a new release or push to main:**
-   ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
 
 ### Using the published image
 
 Once published, users can run the scraper directly without building:
 
 ```bash
-docker run --rm forkbombeu/appraccoon:latest "https://play.google.com/store/apps/details?id=com.whatsapp"
+docker run --rm ghcr.io/forkbombeu/appraccoon:latest "https://play.google.com/store/apps/details?id=com.whatsapp"
 ```
 
 ## Development
