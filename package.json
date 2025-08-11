@@ -1,0 +1,19 @@
+{
+  "name": "appraccoon",
+  "version": "1.0.0",
+  "description": "Google Play Store metadata scraper",
+  "main": "scraper.js",
+  "scripts": {
+    "start": "node scraper.js"
+  },
+  "dependencies": {
+    "google-play-scraper": "^9.1.3"
+  },
+  "keywords": [
+    "google-play",
+    "scraper",
+    "metadata"
+  ],
+  "author": "",
+  "license": "MIT"
+}
